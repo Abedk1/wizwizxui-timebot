@@ -82,7 +82,7 @@ if($userInfo['phone'] == null && $from_id != $admin && $userInfo['isAdmin'] != t
             $text = "/start";
         }
     }else{
-        sendMessage("سلام عزیزم، برای استفاده از ربات شماره تماس خود را با استفاده از کلید زیر ارسال کنید 👇", json_encode([
+        sendMessage("سلام ، برای استفاده از ربات شماره تماس خود را با استفاده از کلید زیر ارسال کنید 👇", json_encode([
 			'keyboard' => [[[
 					'text' => '☎️ ارسال شماره',
 					'request_contact' => true,
@@ -107,22 +107,22 @@ if (preg_match('/^\/([Ss]tart)/', $text) or $text == '⤵️ برگرد به م�
     if(isset($data) and $data == "mainMenu"){
         $res = editText($message_id, 'سلااام به ربات ما خوش اومدی 🫡🌸
 
-ما اینجاییم تا شما را بدون هیچ محدویتی به شبکه جهانی متصل کنیم ❤️
+با ما سرعت و کیفیت را همزمان تجربه کنید ❤️
 
-✅ کیفیت در ساخت انواع کانکشن ها
-📡 برقرای امنیت در ارتباط شما
-☎️ پشتیبانی تا روز آخر 
+✅ اتصال بر روی تمامی اپراتورهای خانگی و همراه
+📡 اتصال امن و مستمر
+☎️  پشتیبانی تا ساعت آخر اشتراک 
 
 🚪 /start
 ', $mainKeys);
         if(!$res->ok){
             sendMessage('سلااام به ربات ما خوش اومدی 🫡🌸
 
-ما اینجاییم تا شما را بدون هیچ محدویتی به شبکه جهانی متصل کنیم ❤️
+با ما سرعت و کیفیت را همزمان تجربه کنید ❤️
 
-✅ کیفیت در ساخت انواع کانکشن ها
-📡 برقرای امنیت در ارتباط شما
-☎️ پشتیبانی تا روز آخر 
+✅ اتصال بر روی تمامی اپراتورهای خانگی و همراه
+📡 اتصال امن و مستمر
+☎️ پشتیبانی تا ساعت آخر اشتراک 
 
 🚪 /start
 ', $mainKeys);
@@ -147,11 +147,11 @@ if (preg_match('/^\/([Ss]tart)/', $text) or $text == '⤵️ برگرد به م�
         }
         sendMessage('سلااام به ربات ما خوش اومدی 🫡🌸
 
-ما اینجاییم تا شما را بدون هیچ محدویتی به شبکه جهانی متصل کنیم ❤️
+با ما سرعت و کیفیت را همزمان تجربه کنید ❤️
 
-✅ کیفیت در ساخت انواع کانکشن ها
-📡 برقرای امنیت در ارتباط شما
-☎️ پشتیبانی تا روز آخر 
+✅ اتصال بر روی تمامی اپراتورهای خانگی و همراه
+📡 اتصال امن و مستمر
+☎️ پشتیبانی تا ساعت آخر اشتراک 
 
 🚪 /start
 ',$mainKeys);
@@ -665,7 +665,7 @@ if(preg_match('/increaseWalletWithCartToCart/',$data)) {
 
     delMessage();  
     setUser($data);
-    sendMessage("♻️ عزیزم یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
+    sendMessage("♻️ لطفا تصویر فیش واریزی را برام ارسال کن :
 
 🔰 <code>{$paymentKeys['bankAccount']}</code> - {$paymentKeys['holderName']}
 
@@ -869,7 +869,7 @@ if ($data=='buySubscription' && ($botState['sellState']=="on" || ($from_id == $a
     $respd = $stmt->get_result();
     $stmt->close();
     if($respd->num_rows==0){
-        alert("😔 | عزیز دلم هیچ سرور فعالی نداریم لطفا بعدا مجدد تست کن");
+        alert("😔 | در حال حاضر هیچ سرور فعالی نداریم لطفا بعدا مجدد تست کن");
         exit;
     }
     $keyboard = [];
@@ -893,7 +893,7 @@ if ($data=='createMultipleAccounts' && ($from_id == $admin || $userInfo['isAdmin
     $respd = $stmt->get_result();
     $stmt->close();
     if($respd->num_rows==0){
-        sendMessage("😔 | عزیز دلم هیچ سرور فعالی نداریم لطفا بعدا مجدد تست کن");
+        sendMessage("😔 | در حال حاضر هیچ سرور فعالی نداریم لطفا بعدا مجدد تست کن");
         exit;
     }
     $keyboard = [];
@@ -1108,7 +1108,11 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
         }
         $last_num++;
     
-        $rnd = rand(1111,99999);
+        $statement = $connection->prepare("SELECT * FROM `orders_list`");
+        $statement->execute();
+        $totalservice2 = $statement->get_result()->num_rows;
+        $rnd = $totalservice2 + 200;
+        $statement->close();
         $remark = "{$srv_remark}-{$from_id}-{$rnd}";
     
         if($inbound_id == 0){    
@@ -1118,7 +1122,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
         }
         
         if(is_null($response)){
-            sendMessage('❌ | 🥺 گلم ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
+            sendMessage('❌ | 🥺  ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
             break;
         }
     	if($response == "inbound not Found"){
@@ -1126,7 +1130,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
             break;
     	}
     	if(!$response->success){
-            sendMessage('❌ | 😮 وای خطا داد لطفا سریع به مدیر بگو ...');
+            sendMessage('❌ | 😮 خطایی رخ داده است، لطفا به ادمین پیام بدید ...');
             break;
         }
     
@@ -1209,7 +1213,7 @@ if(preg_match('/payWithCartToCart(.*)/',$data,$match)) {
     
     setUser($data);
     delMessage();
-    sendMessage("♻️ عزیزم یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
+    sendMessage("♻️ لطفا تصویر فیش واریزی را برام ارسال کن :
 
 🔰 <code>{$paymentKeys['bankAccount']}</code> - {$paymentKeys['holderName']}
 
@@ -1418,7 +1422,11 @@ $stmt->execute();
 $portType = $stmt->get_result()->fetch_assoc()['port_type'];
 $stmt->close();
 
-$rnd = rand(1111,99999);
+$statement = $connection->prepare("SELECT * FROM `orders_list`");
+        $statement->execute();
+        $totalservice2 = $statement->get_result()->num_rows;
+        $rnd = $totalservice2 + 200;
+        $statement->close();
 $remark = "{$srv_remark}-{$from_id}-{$rnd}";
 
 if($portType == "auto"){
@@ -1440,7 +1448,7 @@ if($inbound_id == 0){
 }
 
 if(is_null($response)){
-    alert('❌ | 🥺 گلم ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
+    alert('❌ | 🥺  ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
     exit;
 }
 if($response == "inbound not Found"){
@@ -1448,7 +1456,7 @@ if($response == "inbound not Found"){
 	exit;
 }
 if(!$response->success){
-    alert('❌ | 😮 وای خطا داد لطفا سریع به مدیر بگو ...');
+    alert('❌ | 😮 خطایی رخ داده است لطفا به ادمین پیام دهید ...');
     exit;
 }
 alert('🚀 | 😍 در حال ارسال کانفیگ به مشتری ...');
@@ -2369,7 +2377,11 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     $portType = $stmt->get_result()->fetch_assoc()['port_type'];
     $stmt->close();
 
-    $rnd = rand(1111,99999);
+    $statement = $connection->prepare("SELECT * FROM `orders_list`");
+        $statement->execute();
+        $totalservice2 = $statement->get_result()->num_rows;
+        $rnd = $totalservice2 + 200;
+        $statement->close();
     $remark = "{$srv_remark}-{$from_id}-{$rnd}";
     
     if($portType == "auto"){
@@ -2391,7 +2403,7 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     }
     
     if(is_null($response)){
-        alert('❌ | 🥺 گلم ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
+        alert('❌ | 🥺  ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
         exit;
     }
 	if($response == "inbound not Found"){
@@ -2399,7 +2411,7 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
 		exit;
 	}
 	if(!$response->success){
-        alert('❌ | 😮 وای خطا داد لطفا سریع به مدیر بگو ...');
+        alert('❌ | 😮 خطایی رخ داده است لطفا به مدیر پیام دهید ...');
         exit;
     }
     alert('🚀 | 😍 در حال ارسال کانفیگ به مشتری ...');
@@ -2531,7 +2543,7 @@ if(preg_match('/payCustomWithCartToCart(.*)/',$data, $match)) {
     
     setUser($data);
     delMessage();
-    sendMessage("♻️ عزیزم یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
+    sendMessage("♻️ لطفا تصویر فیش واریزی را برام ارسال کن :
 
 🔰 <code>{$paymentKeys['bankAccount']}</code> - {$paymentKeys['holderName']}
 
@@ -2700,7 +2712,11 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
     $portType = $stmt->get_result()->fetch_assoc()['port_type'];
     $stmt->close();
 
-    $rnd = rand(1111,99999);
+    $statement = $connection->prepare("SELECT * FROM `orders_list`");
+        $statement->execute();
+        $totalservice2 = $statement->get_result()->num_rows;
+        $rnd = $totalservice2 + 200;
+        $statement->close();
     $remark = "{$srv_remark}-{$uid}-{$rnd}";
 
     if($portType == "auto"){
@@ -2722,7 +2738,7 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
     }
     
     if(is_null($response)){
-        alert('❌ | 🥺 گلم ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
+        alert('❌ | 🥺  ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
         exit;
     }
 	if($response == "inbound not Found"){
@@ -2935,7 +2951,11 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
     $portType = $stmt->get_result()->fetch_assoc()['port_type'];
     $stmt->close();
 
-    $rnd = rand(1111,99999);
+    $statement = $connection->prepare("SELECT * FROM `orders_list`");
+        $statement->execute();
+        $totalservice2 = $statement->get_result()->num_rows;
+        $rnd = $totalservice2 + 200;
+        $statement->close();
     $remark = "{$srv_remark}-{$from_id}-{$rnd}";
 
     if($portType == "auto"){
@@ -2957,7 +2977,7 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
     }
     
     if(is_null($response)){
-        alert('❌ | 🥺 گلم ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
+        alert('❌ | 🥺  ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
         exit;
     }
 	if($response == "inbound not Found"){
@@ -3099,7 +3119,7 @@ if(preg_match('/payWithCartToCart(.*)/',$data,$match)) {
     
     setUser($data);
     delMessage();
-    sendMessage("♻️ عزیزم یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
+    sendMessage("♻️ لطفا تصویر فیش واریزی را برام ارسال کن :
 
 🔰 <code>{$paymentKeys['bankAccount']}</code> - {$paymentKeys['holderName']}
 
@@ -3343,7 +3363,11 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
     $portType = $stmt->get_result()->fetch_assoc()['port_type'];
     $stmt->close();
 
-    $rnd = rand(1111,99999);
+    $statement = $connection->prepare("SELECT * FROM `orders_list`");
+        $statement->execute();
+        $totalservice2 = $statement->get_result()->num_rows;
+        $rnd = $totalservice2 + 200;
+        $statement->close();
     $remark = "{$srv_remark}-{$uid}-{$rnd}";
 
     if($portType == "auto"){
@@ -3364,7 +3388,7 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
         } 
     }
     if(is_null($response)){
-        alert('❌ | 🥺 گلم ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
+        alert('❌ | 🥺  ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
         exit;
     }
 	if($response == "inbound not Found"){
@@ -3372,7 +3396,7 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
 		exit;
 	}
 	if(!$response->success){
-        alert('❌ | 😮 وای خطا داد لطفا سریع به مدیر بگو ...');
+        alert('❌ | 😮 خطایی رخ داده است لطفا به ادمین پیام دهید ...');
         exit;
     }
     alert('🚀 | 😍 در حال ارسال کانفیگ به مشتری ...');
@@ -4551,7 +4575,7 @@ if($userInfo['step'] == "unbanUser" && ($from_id == $admin || $userInfo['isAdmin
                 $stmt->execute();
                 $stmt->close();
 
-                sendMessage("✅ | آزاد شدم خوشحالم ننه ، ایشالا آزادی همه 😂",$removeKeyboard);
+                sendMessage("✅ | آزاد شدم ... 😂",$removeKeyboard);
             }else{
                 sendMessage("☑️ | این کاربری که فرستادی از قبل آزاد بود 🙁",$removeKeyboard);
             }
@@ -4680,7 +4704,11 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $portType = $stmt->get_result()->fetch_assoc()['port_type'];
     $stmt->close();
 
-    $rnd = rand(1111,99999);
+    $statement = $connection->prepare("SELECT * FROM `orders_list`");
+        $statement->execute();
+        $totalservice2 = $statement->get_result()->num_rows;
+        $rnd = $totalservice2 + 200;
+        $statement->close();
     $remark = "{$srv_remark}-{$from_id}-{$rnd}";
     
     if($portType == "auto"){
@@ -4700,7 +4728,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
         }
     }
     if(is_null($response)){
-        alert('❌ | 🥺 گلم ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
+        alert('❌ | 🥺  ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
         exit;
     }
 	if($response == "inbound not Found"){
@@ -4708,7 +4736,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
 		exit;
 	}
 	if(!$response->success){
-        alert('❌ | 😮 وای خطا داد لطفا سریع به مدیر بگو ...');
+        alert('❌ | 😮 خطایی رخ داده است لطفا به ادمین پیام دهید ...');
         exit;
     }
     alert('🚀 | 😍 در حال ارسال کانفیگ به مشتری ...');
@@ -4972,7 +5000,7 @@ if($userInfo['step'] == "showAccount" and $text != $cancelText){
         }
     }
     if(!$found){
-         sendMessage("ای وای ، اطلاعاتت اشتباهه 😔",$cancelKey);
+         sendMessage(" ، اطلاعاتت اشتباهه 😔",$cancelKey);
     }
 }
 if (($data == 'addNewPlan' || $data=="addNewRahgozarPlan") and (($from_id == $admin || $userInfo['isAdmin'] == true))){
@@ -5645,7 +5673,7 @@ if(($data == 'mySubscriptions' or preg_match('/changeOrdersPage(\d+)/',$data, $m
 
 
     if($orders->num_rows==0){
-        alert('عزیزم هیچ سفارشی نداری 🙁 باید یه کانفیگ خریداری کنی');
+        alert(' هیچ سفارشی نداری 🙁 باید یه کانفیگ خریداری کنی');
         exit;
     }
     $keyboard = [];
@@ -5987,7 +6015,7 @@ if(preg_match('/^discountRenew(\d+)_(\d+)/',$userInfo['step'], $match) || preg_m
 if(preg_match('/payRenewWithCartToCart(.*)/',$data,$match)) {
     setUser($data);
     delMessage();
-    sendMessage("♻️ عزیزم یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
+    sendMessage("♻️ لطفا تصویر فیش واریزی را برام ارسال کن :
 
 🔰 <code>{$paymentKeys['bankAccount']}</code> - {$paymentKeys['holderName']}
 
@@ -6533,7 +6561,7 @@ if(preg_match('/selectPlanDayIncrease(.+)_(.+)_(.+)_(.+)/',$data,$match)){
 if(preg_match('/payIncreaseDayWithCartToCart(.*)/',$data,$match)) {
     delMessage();
     setUser($data);
-    sendMessage("♻️ عزیزم یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
+    sendMessage("♻️ لطفا تصویر فیش واریزی را برام ارسال کن :
 
 🔰 <code>{$paymentKeys['bankAccount']}</code> - {$paymentKeys['holderName']}
 
@@ -6847,7 +6875,7 @@ if(preg_match('/increaseVolumePlan(.+)_(.+)_(.+)_(.+)/',$data,$match)){
 if(preg_match('/payIncreaseWithCartToCart(.*)/',$data)) {
     setUser($data);
     delMessage();
-    sendMessage("♻️ عزیزم یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
+    sendMessage("♻️ لطفا تصویر فیش واریزی را برام ارسال کن :
 
 🔰 <code>{$paymentKeys['bankAccount']}</code> - {$paymentKeys['holderName']}
 
